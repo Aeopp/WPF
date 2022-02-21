@@ -1,4 +1,5 @@
 ﻿using System;
+using Discord.Core;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,18 +9,65 @@ using Discord.MVVM.Model;
 
 namespace Discord.MVVM.ViewModel
 {
-    class MainViewModel
+    class MainViewModel : ObservableObject
     {
         public ObservableCollection<MessageModel> Messages { get; set; }
         public ObservableCollection<ContactModel> Contacts { get; set; }
+
+        /* Commands */
+        public RelayCommand SendCommand { get; set; }
+        public ContactModel _selectedContact;
+
+        public ContactModel SelectedContact
+        {
+            get { return _selectedContact; }
+            set
+            {
+                _selectedContact = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _message;
+
+        public string Message
+        {
+            get { return _message; }
+            set 
+            {
+                _message = value;
+                OnPropertyChanged(); 
+            }
+            
+        }
+
         public MainViewModel()
         {
             Messages = new ObservableCollection<MessageModel>();
             Contacts = new ObservableCollection<ContactModel>();
 
+            SendCommand = new RelayCommand(o => 
+            {
+                Messages = new ObservableCollection<MessageModel>();
+                Contacts = new ObservableCollection<ContactModel>();
+
+                SendCommand = new RelayCommand(o => 
+                {
+                    Messages.Add(new MessageModel {
+                        
+                    Message = Message,
+                    FirstMessage = false
+                    });
+
+                    Message = "";
+                });
+
+            });
+
+
             Messages.Add(new MessageModel
             { 
-                Username = "Allison",
+                Username = "식빵",
                 UsernameColor = "#409aff",
                 ImageSource = "https://i.imgur.com/DBMRyNF.png",
                 Message = "Test",
@@ -32,7 +80,7 @@ namespace Discord.MVVM.ViewModel
             {
                 Messages.Add(new MessageModel
                 {
-                    Username = "Allison",
+                    Username = "딸기식빵",
                     UsernameColor = "#409aff",
                     ImageSource = "https://i.imgur.com/DBMRyNF.png",
                     Message = "Test",
@@ -69,7 +117,7 @@ namespace Discord.MVVM.ViewModel
             for (int i = 0; i < 5; ++i)
             {
                 Contacts.Add(new ContactModel{
-                    UserName = $"Allison {i}",
+                    UserName = $"식빵 {i}",
                     ImageSource = "https://i.imgur.com/8OyzSQb.gif",
                     Messages = Messages
                 });

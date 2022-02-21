@@ -9,11 +9,18 @@
 
   <ItemGroup>
     <None Remove="Icons\Camera.png" />
+    <None Remove="Icons\GO.jpg" />
     <None Remove="Icons\Good.png" />
     <None Remove="Icons\Heart.png" />
     <None Remove="Icons\Heart_Black.png" />
     <None Remove="Icons\Message.png" />
     <None Remove="Icons\Send.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Icons\GO.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
   </ItemGroup>
 
   <ItemGroup>
@@ -38,7 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Core\" />
     <Folder Include="MVVM\View\" />
   </ItemGroup>
 
